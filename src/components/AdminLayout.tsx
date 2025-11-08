@@ -56,7 +56,7 @@ export const AdminLayout: React.FC = () => {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-foreground transition-all hover:text-primary"
                 >
                   <item.icon className="h-4 w-4" />
                   {item.label}
@@ -101,7 +101,7 @@ export const AdminLayout: React.FC = () => {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:text-primary"
                   >
                     <item.icon className="h-5 w-5" />
                     {item.label}
