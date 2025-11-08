@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import { SessionContextProvider } from "./contexts/SessionContext";
 import { AdminLayout } from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminProducts from "./pages/admin/Products"; // Importar o novo componente
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
             {/* Rotas Administrativas */}
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="products" element={<AdminProducts />} /> {/* Nova rota para produtos */}
               {/* Futuras rotas de admin serão adicionadas aqui */}
             </Route>
 
