@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,6 +13,7 @@ import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { TablesInsert, TablesUpdate } from '@/integrations/supabase/types';
+import { Loader2 } from 'lucide-react';
 
 const productSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -20,7 +21,7 @@ const productSchema = z.object({
   price: z.coerce.number().min(0.01, 'Preço deve ser maior que zero'),
   category: z.string().optional(),
   stock: z.coerce.number().int().min(0, 'Estoque não pode ser negativo'),
-  image_url: z.string().url('URL da imagem inválida').optional().or(z.literal('')),
+  image_url: z.string().optional(), // No longer strictly a URL, as it can be set by upload
   is_active: z.boolean().default(true),
 });
 
@@ -33,12 +34,15 @@ interface ProductFormProps {
 
 const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
   const queryClient = useQueryClient();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: product
       ? {
           ...product,
-          price: parseFloat(product.price as any), // Ensure price is a number
+          price: parseFloat(product.price as any),
           stock: product.stock || 0,
           is_active: product.is_active ?? true,
         }
@@ -53,13 +57,49 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
         },
   });
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setSelectedFile(event.target.files[0]);
+    } else {
+      setSelectedFile(null);
+    }
+  };
+
   const onSubmit = async (values: ProductFormValues) => {
+    setIsUploading(true);
+    let imageUrl = values.image_url;
+
     try {
+      if (selectedFile) {
+        const fileExtension = selectedFile.name.split('.').pop();
+        const fileName = `${Date.now()}.${fileExtension}`;
+        const filePath = `${fileName}`;
+
+        const { data, error: uploadError } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, selectedFile, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        const { data: publicUrlData } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(filePath);
+        
+        imageUrl = publicUrlData.publicUrl;
+      }
+
+      const productData = { ...values, image_url: imageUrl };
+
       if (product) {
         // Update product
         const { error } = await supabase
           .from('products')
-          .update(values as TablesUpdate<'products'>)
+          .update(productData as TablesUpdate<'products'>)
           .eq('id', product.id);
         if (error) throw error;
         toast.success('Produto atualizado com sucesso!');
@@ -67,7 +107,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
         // Add new product
         const { error } = await supabase
           .from('products')
-          .insert(values as TablesInsert<'products'>);
+          .insert(productData as TablesInsert<'products'>);
         if (error) throw error;
         toast.success('Produto adicionado com sucesso!');
       }
@@ -75,6 +115,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
       onSuccess();
     } catch (error: any) {
       toast.error('Erro ao salvar produto', { description: error.message });
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -155,19 +197,25 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="image_url"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>URL da Imagem</FormLabel>
-              <FormControl>
-                <Input placeholder="https://exemplo.com/imagem.jpg" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormItem>
+          <FormLabel>Imagem do Produto</FormLabel>
+          <FormControl>
+            <Input type="file" accept="image/*" onChange={handleFileChange} />
+          </FormControl>
+          <FormDescription>
+            {product?.image_url && !selectedFile && (
+              <p className="text-sm text-muted-foreground mt-2">
+                Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
+              </p>
+            )}
+            {selectedFile && (
+              <p className="text-sm text-muted-foreground mt-2">
+                Arquivo selecionado: {selectedFile.name}
+              </p>
+            )}
+          </FormDescription>
+          <FormMessage />
+        </FormItem>
         <FormField
           control={form.control}
           name="is_active"
@@ -188,8 +236,17 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          {product ? 'Salvar Alterações' : 'Adicionar Produto'}
+        <Button type="submit" className="w-full" disabled={isUploading}>
+          {isUploading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Fazendo upload...
+            </>
+          ) : product ? (
+            'Salvar Alterações'
+          ) : (
+            'Adicionar Produto'
+          )}
         </Button>
       </form>
     </Form>
