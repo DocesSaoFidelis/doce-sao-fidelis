@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod'; // Linha corrigida aqui
+import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -21,7 +21,7 @@ const productSchema = z.object({
   price: z.coerce.number().min(0.01, 'Preço deve ser maior que zero'),
   category: z.string().optional(),
   stock: z.coerce.number().int().min(0, 'Estoque não pode ser negativo'),
-  image_url: z.string().optional(), // No longer strictly a URL, as it can be set by upload
+  image_url: z.string().optional(),
   is_active: z.boolean().default(true),
 });
 
@@ -204,14 +204,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
           </FormControl>
           <FormDescription>
             {product?.image_url && !selectedFile && (
-              <p className="text-sm text-muted-foreground mt-2">
+              <span className="text-sm text-muted-foreground mt-2 block"> {/* Alterado de <p> para <span> e adicionado block */}
                 Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
-              </p>
+              </span>
             )}
             {selectedFile && (
-              <p className="text-sm text-muted-foreground mt-2">
+              <span className="text-sm text-muted-foreground mt-2 block"> {/* Alterado de <p> para <span> e adicionado block */}
                 Arquivo selecionado: {selectedFile.name}
-              </p>
+              </span>
             )}
           </FormDescription>
           <FormMessage />
