@@ -22,6 +22,7 @@ export const Header = () => {
       <div className="container flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center space-x-3">
           <img src={logo} alt="Doces São Fidélis" className="h-16 w-auto" />
+          <span className="text-2xl font-bold text-foreground hidden sm:block">Doces São Fidélis</span>
         </Link>
 
         {/* Desktop Navigation */}
