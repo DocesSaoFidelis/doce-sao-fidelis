@@ -10,6 +10,10 @@ import Qualidade from "./pages/Qualidade";
 import Contato from "./pages/Contato";
 import Orcamento from "./pages/Orcamento";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import { SessionContextProvider } from "./contexts/SessionContext";
+import { AdminLayout } from "./components/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -19,16 +23,27 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/historia" element={<Historia />} />
-          <Route path="/produtos" element={<Produtos />} />
-          <Route path="/qualidade" element={<Qualidade />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/orcamento" element={<Orcamento />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <SessionContextProvider>
+          <Routes>
+            {/* Rotas Públicas */}
+            <Route path="/" element={<Index />} />
+            <Route path="/historia" element={<Historia />} />
+            <Route path="/produtos" element={<Produtos />} />
+            <Route path="/qualidade" element={<Qualidade />} />
+            <Route path="/contato" element={<Contato />} />
+            <Route path="/orcamento" element={<Orcamento />} />
+            <Route path="/login" element={<Login />} />
+
+            {/* Rotas Administrativas */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              {/* Futuras rotas de admin serão adicionadas aqui */}
+            </Route>
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </SessionContextProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
