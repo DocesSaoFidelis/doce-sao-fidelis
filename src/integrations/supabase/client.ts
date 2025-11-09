@@ -6,8 +6,16 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 // Adicionando logs para depuração
-console.log('Supabase URL:', SUPABASE_URL);
-console.log('Supabase Publishable Key:', SUPABASE_PUBLISHABLE_KEY);
+console.log('Supabase URL from .env:', SUPABASE_URL);
+console.log('Supabase Publishable Key from .env:', SUPABASE_PUBLISHABLE_KEY);
+
+// Verificação adicional para garantir que as variáveis não são undefined ou vazias
+if (!SUPABASE_URL) {
+  console.error('VITE_SUPABASE_URL is not defined. Please check your .env file.');
+}
+if (!SUPABASE_PUBLISHABLE_KEY) {
+  console.error('VITE_SUPABASE_PUBLISHABLE_KEY is not defined. Please check your .env file.');
+}
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   auth: {
