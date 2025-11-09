@@ -44,7 +44,7 @@ const AdminProducts = () => {
       <ProductTable onEdit={handleEditProduct} />
 
       <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="w-full max-w-lg h-full max-h-[90vh] overflow-y-auto"> {/* Ajustado para responsividade */}
           <DialogHeader>
             <DialogTitle>{editingProduct ? 'Editar Produto' : 'Adicionar Novo Produto'}</DialogTitle>
             <DialogDescription>
