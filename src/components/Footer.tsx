@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Instagram, ArrowRight } from "lucide-react"; // Removido Facebook
+import { MapPin, Phone, Mail, Instagram, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoDocesSF from "@/assets/logo_Doces_Sao_Fidelis.png";
 
@@ -57,7 +57,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Phone className="h-5 w-5 flex-shrink-0 text-primary" />
-                <a href="https://wa.me/5532988484644" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">(32) 98848-4644</a>
+                <a href="https://wa.me/5532988484644" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">(32) 98848-4644 (WhatsApp)</a> {/* Atualizado para WhatsApp */}
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" />
@@ -71,10 +71,9 @@ export const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Redes Sociais</h3>
             <p className="text-sm opacity-90 mb-4">Siga-nos nas redes sociais e fique por dentro das novidades!</p>
             <div className="flex gap-4">
-              <a href="https://www.instagram.com/docessaofidelis/" target="_blank" rel="noopener noreferrer" className="bg-primary p-2 rounded-full hover:opacity-90 transition-opacity" aria-label="Instagram"> {/* Link do Instagram atualizado */}
+              <a href="https://www.instagram.com/docessaofidelis/" target="_blank" rel="noopener noreferrer" className="bg-primary p-2 rounded-full hover:opacity-90 transition-opacity" aria-label="Instagram">
                 <Instagram className="h-6 w-6 text-primary-foreground" />
               </a>
-              {/* Ícone do Facebook removido */}
             </div>
           </div>
         </div>
