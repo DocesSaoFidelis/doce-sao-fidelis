@@ -1,5 +1,5 @@
 import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { ThemeSupa } from '@supabase/auth-ui-shared'; // Corrigido aqui: de '@supabase/auth/ui-shared' para '@supabase/auth-ui-shared'
 import { supabase } from '@/integrations/supabase/client';
 import { useSession } from '@/contexts/SessionContext';
 import { useNavigate } from 'react-router-dom';
