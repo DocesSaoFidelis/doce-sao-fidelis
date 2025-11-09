@@ -103,8 +103,8 @@ const Contato = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="telefone">Telefone</Label>
-                    <Input id="telefone" type="tel" className="mt-2 rounded-lg" placeholder="(00) 00000-0000" />
+                    <Label htmlFor="telefone">Telefone/WhatsApp *</Label> {/* Label alterado */}
+                    <Input id="telefone" type="tel" required className="mt-2 rounded-lg" placeholder="(00) 00000-0000" /> {/* Adicionado 'required' */}
                   </div>
 
                   <div>
