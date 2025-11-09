@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, ArrowRight } from "lucide-react"; // Removido Facebook
 import { Button } from "@/components/ui/button";
-import logoDocesSF from "@/assets/logo_Doces_Sao_Fidelis.png"; // Importar a nova logomarca
+import logoDocesSF from "@/assets/logo_Doces_Sao_Fidelis.png";
 
 export const Footer = () => {
   return (
@@ -27,7 +27,7 @@ export const Footer = () => {
           {/* Logo e Descrição */}
           <div className="col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" /> {/* Alterado de h-12 para h-16 */}
+              <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" />
               <span className="text-2xl font-bold sr-only">Doces São Fidélis</span>
             </Link>
             <p className="text-sm opacity-90">
@@ -71,12 +71,10 @@ export const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Redes Sociais</h3>
             <p className="text-sm opacity-90 mb-4">Siga-nos nas redes sociais e fique por dentro das novidades!</p>
             <div className="flex gap-4">
-              <a href="#" className="bg-primary p-2 rounded-full hover:opacity-90 transition-opacity" aria-label="Instagram">
+              <a href="https://www.instagram.com/docessaofidelis/" target="_blank" rel="noopener noreferrer" className="bg-primary p-2 rounded-full hover:opacity-90 transition-opacity" aria-label="Instagram"> {/* Link do Instagram atualizado */}
                 <Instagram className="h-6 w-6 text-primary-foreground" />
               </a>
-              <a href="#" className="bg-primary p-2 rounded-full hover:opacity-90 transition-opacity" aria-label="Facebook">
-                <Facebook className="h-6 w-6 text-primary-foreground" />
-              </a>
+              {/* Ícone do Facebook removido */}
             </div>
           </div>
         </div>
