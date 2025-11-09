@@ -1,7 +1,9 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Users, Factory, Award } from "lucide-react";
+import { Calendar, Users, Factory, Award, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Historia = () => {
   return (
@@ -9,7 +11,7 @@ const Historia = () => {
       <Header />
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-primary to-accent py-20 text-primary-foreground">
+      <section className="bg-gradient-to-r from-primary to-orange-600 py-20 text-primary-foreground">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Nossa História</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
@@ -19,14 +21,14 @@ const Historia = () => {
       </section>
 
       {/* Linha do Tempo */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container max-w-4xl">
           <div className="space-y-12">
-            <Card className="border-l-4 border-l-secondary">
+            <Card className="border-l-4 border-l-primary shadow-xl rounded-xl">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-4">
-                  <div className="bg-secondary rounded-full p-3 flex-shrink-0">
-                    <Calendar className="h-6 w-6 text-secondary-foreground" />
+                  <div className="bg-primary rounded-full p-3 flex-shrink-0">
+                    <Calendar className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-2">2000 - O Começo</h3>
@@ -40,11 +42,11 @@ const Historia = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-accent">
+            <Card className="border-l-4 border-l-orange-500 shadow-xl rounded-xl">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-4">
-                  <div className="bg-accent rounded-full p-3 flex-shrink-0">
-                    <Users className="h-6 w-6 text-accent-foreground" />
+                  <div className="bg-orange-500 rounded-full p-3 flex-shrink-0">
+                    <Users className="h-6 w-6 text-white" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-2">Crescimento e Tradição</h3>
@@ -59,7 +61,7 @@ const Historia = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-primary">
+            <Card className="border-l-4 border-l-primary shadow-xl rounded-xl">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary rounded-full p-3 flex-shrink-0">
@@ -82,17 +84,17 @@ const Historia = () => {
       </section>
 
       {/* Nossa Missão */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-accent">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <Award className="h-16 w-16 mx-auto mb-6 text-secondary" />
+              <Award className="h-16 w-16 mx-auto mb-6 text-primary" />
               <h2 className="text-4xl font-bold mb-6">Nossa Missão</h2>
             </div>
             
-            <Card className="border-none shadow-xl">
+            <Card className="border-none shadow-xl rounded-xl">
               <CardContent className="pt-8 text-center">
-                <p className="text-2xl font-semibold text-secondary mb-6">
+                <p className="text-2xl font-semibold text-primary mb-6">
                   "Produzir doces de banana de altíssima qualidade, respeitando a tradição artesanal 
                   e o sabor autêntico que nos tornaram reconhecidos em todo o Brasil."
                 </p>
@@ -108,15 +110,15 @@ const Historia = () => {
       </section>
 
       {/* Nossos Valores */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container">
           <h2 className="text-4xl font-bold text-center mb-16">Nossos Valores</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="h-10 w-10 text-primary-foreground" />
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-10 w-10 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Tradição e Família</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -127,10 +129,10 @@ const Historia = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Award className="h-10 w-10 text-secondary-foreground" />
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Award className="h-10 w-10 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Qualidade</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -141,10 +143,10 @@ const Historia = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Factory className="h-10 w-10 text-accent-foreground" />
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Factory className="h-10 w-10 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Compromisso com a Excelência</h3>
                 <p className="text-muted-foreground leading-relaxed">

@@ -8,37 +8,37 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 42 38% 96%;
-    --foreground: 25 35% 20%;
+    --background: 42 38% 96%; /* Light cream background */
+    --foreground: 25 35% 20%; /* Dark text color */
 
-    --card: 0 0% 100%;
+    --card: 0 0% 100%; /* White card background */
     --card-foreground: 25 35% 20%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 25 35% 20%;
 
-    --primary: 45 93% 58%;
-    --primary-foreground: 25 35% 20%;
+    --primary: 30 100% 50%; /* Main orange color */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
 
-    --secondary: 0 65% 45%;
-    --secondary-foreground: 42 38% 96%;
+    --secondary: 25 35% 20%; /* Dark background for footer/sections */
+    --secondary-foreground: 42 38% 96%; /* Light text on secondary */
 
-    --muted: 42 25% 88%;
-    --muted-foreground: 25 20% 45%;
+    --muted: 42 25% 88%; /* Lighter cream for muted backgrounds */
+    --muted-foreground: 25 20% 45%; /* Muted dark text */
 
-    --accent: 18 60% 50%;
-    --accent-foreground: 42 38% 96%;
+    --accent: 42 38% 96%; /* Light cream for accent background */
+    --accent-foreground: 25 35% 20%; /* Dark text on accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 42 38% 96%;
 
     --border: 42 20% 85%;
     --input: 42 20% 85%;
-    --ring: 45 93% 58%;
+    --ring: 30 100% 50%; /* Ring color matches primary orange */
 
-    --radius: 0.75rem;
+    --radius: 1rem; /* Aumentado para bordas mais arredondadas */
     
-    --gradient-hero: linear-gradient(135deg, hsl(45 93% 65%), hsl(38 90% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(30 100% 55%), hsl(35 100% 45%)); /* Novo gradiente para hero */
     --gradient-warm: linear-gradient(180deg, hsl(42 38% 96%), hsl(42 25% 88%));
     --shadow-warm: 0 10px 30px -10px hsl(45 60% 40% / 0.2);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -70,16 +70,16 @@ All colors MUST be HSL.
     --popover: 25 30% 15%;
     --popover-foreground: 42 38% 96%;
 
-    --primary: 45 93% 58%;
-    --primary-foreground: 25 35% 20%;
+    --primary: 30 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 65% 35%;
-    --secondary-foreground: 42 38% 96%;
+    --secondary: 42 38% 96%;
+    --secondary-foreground: 25 35% 20%;
 
     --muted: 25 25% 25%;
     --muted-foreground: 42 20% 70%;
 
-    --accent: 18 60% 45%;
+    --accent: 25 35% 20%;
     --accent-foreground: 42 38% 96%;
 
     --destructive: 0 62.8% 50.6%;
@@ -87,7 +87,7 @@ All colors MUST be HSL.
 
     --border: 25 25% 25%;
     --input: 25 25% 25%;
-    --ring: 45 93% 58%;
+    --ring: 30 100% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

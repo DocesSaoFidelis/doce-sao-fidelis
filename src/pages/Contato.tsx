@@ -5,16 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
+import { toast } from "sonner"; // Usando sonner para toasts
 
 const Contato = () => {
-  const { toast } = useToast();
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
+    toast.success("Mensagem enviada!", {
       description: "Entraremos em contato em breve.",
     });
   };
@@ -24,7 +21,7 @@ const Contato = () => {
       <Header />
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-primary to-secondary py-20 text-primary-foreground">
+      <section className="bg-gradient-to-r from-primary to-orange-600 py-20 text-primary-foreground">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Entre em Contato</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
@@ -34,7 +31,7 @@ const Contato = () => {
       </section>
 
       {/* Contato Info e Formulário */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Info de Contato */}
@@ -47,7 +44,7 @@ const Contato = () => {
                 </p>
               </div>
 
-              <Card className="border-none shadow-lg">
+              <Card className="border-none shadow-xl rounded-xl">
                 <CardContent className="pt-6 space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="bg-primary rounded-full p-3 flex-shrink-0">
@@ -63,20 +60,20 @@ const Contato = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="bg-secondary rounded-full p-3 flex-shrink-0">
-                      <Phone className="h-6 w-6 text-secondary-foreground" />
+                    <div className="bg-primary rounded-full p-3 flex-shrink-0">
+                      <Phone className="h-6 w-6 text-primary-foreground" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Telefone</h3>
-                      <a href="tel:3298484644" className="text-muted-foreground hover:text-secondary transition-colors">
+                      <a href="tel:3298484644" className="text-muted-foreground hover:text-primary transition-colors">
                         (32) 98848-4644
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="bg-accent rounded-full p-3 flex-shrink-0">
-                      <Clock className="h-6 w-6 text-accent-foreground" />
+                    <div className="bg-primary rounded-full p-3 flex-shrink-0">
+                      <Clock className="h-6 w-6 text-primary-foreground" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1">Horário de Atendimento</h3>
@@ -91,28 +88,28 @@ const Contato = () => {
             </div>
 
             {/* Formulário de Contato */}
-            <Card className="border-none shadow-xl">
+            <Card className="border-none shadow-xl rounded-xl">
               <CardContent className="pt-8">
                 <h2 className="text-3xl font-bold mb-6">Envie uma Mensagem</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <Label htmlFor="nome">Nome Completo *</Label>
-                    <Input id="nome" required className="mt-2" placeholder="Seu nome" />
+                    <Input id="nome" required className="mt-2 rounded-lg" placeholder="Seu nome" />
                   </div>
 
                   <div>
                     <Label htmlFor="email">E-mail *</Label>
-                    <Input id="email" type="email" required className="mt-2" placeholder="seu@email.com" />
+                    <Input id="email" type="email" required className="mt-2 rounded-lg" placeholder="seu@email.com" />
                   </div>
 
                   <div>
                     <Label htmlFor="telefone">Telefone</Label>
-                    <Input id="telefone" type="tel" className="mt-2" placeholder="(00) 00000-0000" />
+                    <Input id="telefone" type="tel" className="mt-2 rounded-lg" placeholder="(00) 00000-0000" />
                   </div>
 
                   <div>
                     <Label htmlFor="assunto">Assunto *</Label>
-                    <Input id="assunto" required className="mt-2" placeholder="Como podemos ajudar?" />
+                    <Input id="assunto" required className="mt-2 rounded-lg" placeholder="Como podemos ajudar?" />
                   </div>
 
                   <div>
@@ -120,13 +117,13 @@ const Contato = () => {
                     <Textarea 
                       id="mensagem" 
                       required 
-                      className="mt-2 min-h-[150px]" 
+                      className="mt-2 min-h-[150px] rounded-lg" 
                       placeholder="Escreva sua mensagem aqui..."
                     />
                   </div>
 
-                  <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90" size="lg">
-                    Enviar Mensagem
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 text-base font-semibold shadow-md" size="lg">
+                    Enviar Mensagem <ArrowRight className="h-5 w-5 ml-2" />
                   </Button>
                 </form>
               </CardContent>
@@ -136,10 +133,10 @@ const Contato = () => {
       </section>
 
       {/* Mapa */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-accent">
         <div className="container">
           <h2 className="text-4xl font-bold text-center mb-12">Nossa Localização</h2>
-          <div className="rounded-lg overflow-hidden shadow-xl">
+          <div className="rounded-xl overflow-hidden shadow-xl">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3729.123456789!2d-41.7489!3d-21.6489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDM4JzU2LjAiUyA0McKwNDQnNTYuMCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
               width="100%"

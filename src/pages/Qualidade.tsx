@@ -10,7 +10,7 @@ const Qualidade = () => {
       <Header />
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-secondary to-primary py-20 text-secondary-foreground">
+      <section className="bg-gradient-to-r from-primary to-orange-600 py-20 text-primary-foreground">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Compromisso com a Qualidade</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
@@ -20,9 +20,9 @@ const Qualidade = () => {
       </section>
 
       {/* Intro */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container max-w-4xl text-center">
-          <Award className="h-20 w-20 mx-auto mb-8 text-secondary" />
+          <Award className="h-20 w-20 mx-auto mb-8 text-primary" />
           <h2 className="text-4xl font-bold mb-6">Nossa Garantia de Qualidade</h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
             A qualidade é um compromisso que assumimos com cada cliente. Mantemos os mais altos 
@@ -34,15 +34,15 @@ const Qualidade = () => {
       </section>
 
       {/* Pilares da Qualidade */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-accent">
         <div className="container">
           <h2 className="text-4xl font-bold text-center mb-16">Nossos Pilares de Qualidade</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Leaf className="h-8 w-8 text-primary-foreground" />
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Leaf className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Ingredientes Selecionados</h3>
                 <p className="text-muted-foreground">
@@ -51,10 +51,10 @@ const Qualidade = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Factory className="h-8 w-8 text-secondary-foreground" />
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Factory className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Processo Artesanal</h3>
                 <p className="text-muted-foreground">
@@ -63,10 +63,10 @@ const Qualidade = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="h-8 w-8 text-accent-foreground" />
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Equipe Dedicada</h3>
                 <p className="text-muted-foreground">
@@ -75,10 +75,10 @@ const Qualidade = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-none shadow-lg">
+            <Card className="text-center border-none shadow-lg rounded-xl">
               <CardContent className="pt-8">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle className="h-8 w-8 text-primary-foreground" />
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Controle Rigoroso</h3>
                 <p className="text-muted-foreground">
@@ -91,13 +91,13 @@ const Qualidade = () => {
       </section>
 
       {/* Processo de Produção */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16">Nosso Processo de Produção</h2>
             
             <div className="space-y-8">
-              <Card className="border-l-4 border-l-primary">
+              <Card className="border-l-4 border-l-primary shadow-xl rounded-xl">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
                     <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
@@ -115,10 +115,10 @@ const Qualidade = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-secondary">
+              <Card className="border-l-4 border-l-orange-500 shadow-xl rounded-xl">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-secondary rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-secondary-foreground font-bold">
+                    <div className="bg-orange-500 rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-white font-bold">
                       2
                     </div>
                     <div>
@@ -133,10 +133,10 @@ const Qualidade = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-accent">
+              <Card className="border-l-4 border-l-primary shadow-xl rounded-xl">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-accent-foreground font-bold">
+                    <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
                       3
                     </div>
                     <div>
@@ -151,10 +151,10 @@ const Qualidade = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-primary">
+              <Card className="border-l-4 border-l-orange-500 shadow-xl rounded-xl">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-primary-foreground font-bold">
+                    <div className="bg-orange-500 rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 text-white font-bold">
                       4
                     </div>
                     <div>
@@ -174,7 +174,7 @@ const Qualidade = () => {
       </section>
 
       {/* Certificações */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-accent">
         <div className="container text-center">
           <h2 className="text-4xl font-bold mb-6">Conformidade e Segurança Alimentar</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
@@ -183,9 +183,9 @@ const Qualidade = () => {
             para toda a família.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Badge className="text-lg px-6 py-3 bg-primary">CNPJ: 04.074.923/0001-49</Badge>
-            <Badge className="text-lg px-6 py-3 bg-secondary">Indústria Brasileira</Badge>
-            <Badge className="text-lg px-6 py-3 bg-accent">Sem Glúten</Badge>
+            <Badge className="text-lg px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-md">CNPJ: 04.074.923/0001-49</Badge>
+            <Badge className="text-lg px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-md">Indústria Brasileira</Badge>
+            <Badge className="text-lg px-6 py-3 bg-primary text-primary-foreground rounded-full shadow-md">Sem Glúten</Badge>
           </div>
         </div>
       </section>

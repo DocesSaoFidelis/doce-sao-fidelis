@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Package, Leaf } from "lucide-react";
+import { Package, Leaf, ArrowRight } from "lucide-react";
 import productBananada from "@/assets/product-bananada.jpg";
 import productBanacai from "@/assets/product-banacai.jpg";
 import productBanagoiaba from "@/assets/product-banagoiaba.jpg";
@@ -58,7 +58,7 @@ const Produtos = () => {
       <Header />
       
       {/* Hero */}
-      <section className="bg-gradient-to-r from-accent to-secondary py-20 text-accent-foreground">
+      <section className="bg-gradient-to-r from-primary to-orange-600 py-20 text-primary-foreground">
         <div className="container text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">Nossos Produtos</h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90">
@@ -68,11 +68,11 @@ const Produtos = () => {
       </section>
 
       {/* Produtos Grid */}
-      <section className="py-20">
+      <section className="py-20 bg-background">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {produtos.map((produto) => (
-              <Card key={produto.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
+              <Card key={produto.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
                 <div className="relative h-80">
                   <img 
                     src={produto.imagem} 
@@ -80,7 +80,7 @@ const Produtos = () => {
                     className="w-full h-full object-cover"
                   />
                   {produto.glutenFree && (
-                    <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
+                    <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground rounded-full px-3 py-1 text-sm font-semibold">
                       <Leaf className="h-4 w-4 mr-1" />
                       Sem Glúten
                     </Badge>
@@ -94,7 +94,7 @@ const Produtos = () => {
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-2">
-                      <Package className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                      <Package className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="font-semibold">Embalagem:</p>
                         <p className="text-muted-foreground">{produto.unidades} unidades - Peso líquido: {produto.peso}</p>
@@ -102,7 +102,7 @@ const Produtos = () => {
                     </div>
                     
                     <div className="flex items-start gap-2">
-                      <Leaf className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                      <Leaf className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="font-semibold">Ingredientes:</p>
                         <p className="text-muted-foreground">{produto.ingredientes}</p>
@@ -110,8 +110,10 @@ const Produtos = () => {
                     </div>
                   </div>
 
-                  <Button asChild className="w-full bg-secondary hover:bg-secondary/90">
-                    <Link to="/orcamento">Solicitar Orçamento</Link>
+                  <Button asChild className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 text-base font-semibold shadow-md">
+                    <Link to="/orcamento" className="flex items-center justify-center gap-2">
+                      Solicitar Orçamento <ArrowRight className="h-5 w-5" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -121,17 +123,19 @@ const Produtos = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-accent">
         <div className="container text-center">
           <h2 className="text-4xl font-bold mb-6">Interessado em nossos produtos?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Entre em contato conosco para saber mais sobre preços, disponibilidade e condições especiais para distribuidores
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90">
-              <Link to="/orcamento">Solicitar Orçamento</Link>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 shadow-lg">
+              <Link to="/orcamento" className="flex items-center gap-2">
+                Solicitar Orçamento <ArrowRight className="h-5 w-5" />
+              </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-8 py-6 shadow-lg">
               <Link to="/contato">Fale Conosco</Link>
             </Button>
           </div>
