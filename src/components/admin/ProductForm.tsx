@@ -169,7 +169,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             <FormItem>
               <FormLabel>Categoria</FormLabel>
               <FormControl>
-                <Input placeholder="Ex: Bananada, Goma de Amido, Doce de Leite" {...field} /> {/* Alterado para Input */}
+                <Input placeholder="Ex: Bananada, Goma de Amido, Doce de Leite" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
