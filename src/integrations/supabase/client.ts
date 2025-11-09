@@ -9,12 +9,27 @@ const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 console.log('Supabase URL from .env:', SUPABASE_URL);
 console.log('Supabase Publishable Key from .env:', SUPABASE_PUBLISHABLE_KEY);
 
-// Verificação adicional para garantir que as variáveis não são undefined ou vazias
-if (!SUPABASE_URL) {
-  console.error('VITE_SUPABASE_URL is not defined. Please check your .env file.');
+// Validação explícita da URL antes de criar o cliente Supabase
+const isValidUrl = (url: string | undefined): boolean => {
+  if (!url) return false;
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
+  } catch (e) {
+    return false;
+  }
+};
+
+if (!isValidUrl(SUPABASE_URL)) {
+  console.error('ERRO CRÍTICO: VITE_SUPABASE_URL não é uma URL HTTP/HTTPS válida. Por favor, verifique seu arquivo .env.');
+  // Para evitar que o aplicativo trave, você pode retornar um cliente dummy ou lançar um erro.
+  // Por enquanto, vamos lançar um erro para que o problema seja visível.
+  throw new Error('Configuração inválida: VITE_SUPABASE_URL deve ser uma URL HTTP ou HTTPS válida.');
 }
+
 if (!SUPABASE_PUBLISHABLE_KEY) {
-  console.error('VITE_SUPABASE_PUBLISHABLE_KEY is not defined. Please check your .env file.');
+  console.error('ERRO CRÍTICO: VITE_SUPABASE_PUBLISHABLE_KEY não está definida. Por favor, verifique seu arquivo .env.');
+  throw new Error('Configuração inválida: VITE_SUPABASE_PUBLISHABLE_KEY não está definida.');
 }
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
