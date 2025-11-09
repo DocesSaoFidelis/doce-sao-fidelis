@@ -14,27 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_messages: {
+        Row: {
+          id: string
+          created_at: string | null
+          name: string
+          email: string
+          phone_whatsapp: string
+          subject: string
+          message: string
+          is_read: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string | null
+          name: string
+          email: string
+          phone_whatsapp: string
+          subject: string
+          message: string
+          is_read?: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string | null
+          name?: string
+          email?: string
+          phone_whatsapp?: string
+          subject?: string
+          message?: string
+          is_read?: boolean
+        }
+        Relationships: []
+      }
       newsletter_subscriptions: {
         Row: {
           created_at: string | null
           email: string
           id: string
-          name: string | null // Added
-          whatsapp: string | null // Added
+          name: string | null
+          whatsapp: string | null
         }
         Insert: {
           created_at?: string | null
           email: string
           id?: string
-          name?: string | null // Added
-          whatsapp?: string | null // Added
+          name?: string | null
+          whatsapp?: string | null
         }
         Update: {
           created_at?: string | null
           email?: string
           id?: string
-          name?: string | null // Added
-          whatsapp?: string | null // Added
+          name?: string | null
+          whatsapp?: string | null
         }
         Relationships: []
       }

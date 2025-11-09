@@ -5,15 +5,55 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
-import { toast } from "sonner"; // Usando sonner para toasts
+import { MapPin, Phone, Mail, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+// Esquema de validação para o formulário de contato
+const contactFormSchema = z.object({
+  name: z.string().min(1, "O nome completo é obrigatório."),
+  email: z.string().email("Por favor, insira um e-mail válido.").min(1, "O e-mail é obrigatório."),
+  phone_whatsapp: z.string().min(1, "O telefone/WhatsApp é obrigatório."),
+  subject: z.string().min(1, "O assunto é obrigatório."),
+  message: z.string().min(1, "A mensagem é obrigatória."),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Contato = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success("Mensagem enviada!", {
-      description: "Entraremos em contato em breve.",
-    });
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone_whatsapp: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (values: ContactFormValues) => {
+    try {
+      const { error } = await supabase.from('contact_messages').insert(values);
+
+      if (error) {
+        throw error;
+      }
+
+      toast.success("Mensagem enviada!", {
+        description: "Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.",
+      });
+      form.reset(); // Limpa o formulário após o envio
+    } catch (error: any) {
+      console.error("Erro ao enviar mensagem:", error);
+      toast.error("Erro ao enviar mensagem", {
+        description: error.message || "Ocorreu um erro inesperado. Tente novamente.",
+      });
+    }
   };
 
   return (
@@ -91,41 +131,92 @@ const Contato = () => {
             <Card className="border-none shadow-xl rounded-xl">
               <CardContent className="pt-8">
                 <h2 className="text-3xl font-bold mb-6">Envie uma Mensagem</h2>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <Label htmlFor="nome">Nome Completo *</Label>
-                    <Input id="nome" required className="mt-2 rounded-lg" placeholder="Seu nome" />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="email">E-mail *</Label>
-                    <Input id="email" type="email" required className="mt-2 rounded-lg" placeholder="seu@email.com" />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="telefone">Telefone/WhatsApp *</Label> {/* Label alterado */}
-                    <Input id="telefone" type="tel" required className="mt-2 rounded-lg" placeholder="(00) 00000-0000" /> {/* Adicionado 'required' */}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="assunto">Assunto *</Label>
-                    <Input id="assunto" required className="mt-2 rounded-lg" placeholder="Como podemos ajudar?" />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="mensagem">Mensagem *</Label>
-                    <Textarea 
-                      id="mensagem" 
-                      required 
-                      className="mt-2 min-h-[150px] rounded-lg" 
-                      placeholder="Escreva sua mensagem aqui..."
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nome Completo *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Seu nome" className="mt-2 rounded-lg" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 text-base font-semibold shadow-md" size="lg">
-                    Enviar Mensagem <ArrowRight className="h-5 w-5 ml-2" />
-                  </Button>
-                </form>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>E-mail *</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="seu@email.com" className="mt-2 rounded-lg" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="phone_whatsapp"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Telefone/WhatsApp *</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="(00) 00000-0000" className="mt-2 rounded-lg" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="subject"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Assunto *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Como podemos ajudar?" className="mt-2 rounded-lg" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mensagem *</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Escreva sua mensagem aqui..." className="mt-2 min-h-[150px] rounded-lg" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 text-base font-semibold shadow-md" size="lg" disabled={form.formState.isSubmitting}>
+                      {form.formState.isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Enviando...
+                        </>
+                      ) : (
+                        <>
+                          Enviar Mensagem <ArrowRight className="h-5 w-5 ml-2" />
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </CardContent>
             </Card>
           </div>
