@@ -139,6 +139,75 @@ export type Database = {
         }
         Relationships: []
       }
+      quotation_requests: {
+        Row: {
+          id: string
+          created_at: string | null
+          person_type: string
+          full_name: string
+          cpf_cnpj: string
+          email: string
+          phone_whatsapp: string
+          zip_code: string
+          address: string
+          number: string
+          complement: string | null
+          neighborhood: string
+          city: string
+          state: string
+          products_of_interest: string[]
+          estimated_quantity: number
+          how_did_you_hear: string | null
+          return_preference: string[] | null
+          message: string | null
+          is_read: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string | null
+          person_type: string
+          full_name: string
+          cpf_cnpj: string
+          email: string
+          phone_whatsapp: string
+          zip_code: string
+          address: string
+          number: string
+          complement?: string | null
+          neighborhood: string
+          city: string
+          state: string
+          products_of_interest: string[]
+          estimated_quantity: number
+          how_did_you_hear?: string | null
+          return_preference?: string[] | null
+          message?: string | null
+          is_read?: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string | null
+          person_type?: string
+          full_name?: string
+          cpf_cnpj?: string
+          email?: string
+          phone_whatsapp?: string
+          zip_code?: string
+          address?: string
+          number?: string
+          complement?: string | null
+          neighborhood?: string
+          city?: string
+          state?: string
+          products_of_interest?: string[]
+          estimated_quantity?: number
+          how_did_you_hear?: string | null
+          return_preference?: string[] | null
+          message?: string | null
+          is_read?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
