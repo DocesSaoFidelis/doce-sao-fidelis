@@ -186,7 +186,7 @@ const Index = () => {
               Erro ao carregar produtos em destaque: {featuredError.message}
             </div>
           ) : featuredProducts && featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12"> {/* Alterado aqui */}
               {featuredProducts.map((product) => (
                 <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg">
                   <div className="relative h-48 w-full">
@@ -202,7 +202,7 @@ const Index = () => {
                     </Button>
                   </div>
                   <CardContent className="p-4">
-                    <h3 className="text-lg font-semibold text-foreground mb-1">{product.name}</h3> {/* Ajustado para text-lg font-semibold */}
+                    <h3 className="text-lg font-semibold text-foreground mb-1">{product.name}</h3>
                     <div className="flex items-center text-yellow-500 text-sm mb-2">
                       <Star fill="currentColor" className="h-4 w-4" />
                       <Star fill="currentColor" className="h-4 w-4" />
@@ -211,7 +211,7 @@ const Index = () => {
                       <Star fill="currentColor" className="h-4 w-4" />
                       <span className="ml-1 text-muted-foreground text-xs">5.0</span>
                     </div>
-                    <p className="text-xl font-bold text-foreground">R$ {product.price.toFixed(2)}</p> {/* Ajustado para text-xl font-bold */}
+                    <p className="text-xl font-bold text-foreground">R$ {product.price.toFixed(2)}</p>
                   </CardContent>
                 </Card>
               ))}
