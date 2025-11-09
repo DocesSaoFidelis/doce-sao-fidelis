@@ -194,13 +194,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             <Input type="file" accept="image/*" onChange={handleFileChange} />
           </FormControl>
           <FormDescription>
-            {/* Simplificado para depuração: sempre um único span */}
             <span className="text-sm text-muted-foreground mt-2 block">
-              {product?.image_url && !selectedFile
-                ? `Imagem atual: ${product.image_url}`
-                : selectedFile
-                ? `Arquivo selecionado: ${selectedFile.name}`
-                : 'Nenhuma imagem selecionada.'}
+              {product?.image_url && !selectedFile ? (
+                <>
+                  Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
+                </>
+              ) : selectedFile ? (
+                `Arquivo selecionado: ${selectedFile.name}`
+              ) : (
+                'Nenhuma imagem selecionada.'
+              )}
             </span>
           </FormDescription>
           <FormMessage />
