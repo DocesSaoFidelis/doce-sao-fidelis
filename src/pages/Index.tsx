@@ -4,13 +4,28 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package } from "lucide-react";
+import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2 } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
-import productBananada from "@/assets/product-bananada.jpg";
-import productBanacai from "@/assets/product-banacai.jpg"; // Usar para gomas
 import factoryImage from "@/assets/factory.jpg";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Tables } from "@/integrations/supabase/types";
 
 const Index = () => {
+  const { data: featuredProducts, isLoading: isLoadingFeatured, error: featuredError } = useQuery<Tables<'products'>[]>({
+    queryKey: ['featuredProducts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true) // Apenas produtos ativos
+        .order('created_at', { ascending: false })
+        .limit(2); // Limita a 2 produtos em destaque
+      if (error) throw error;
+      return data;
+    },
+  });
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -161,65 +176,65 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
-            <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
-              <div className="relative">
-                <img src={productBananada} alt="Bananadas Artesanais" className="w-full h-64 object-cover" />
-                <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                  Nosso Carro-Chefe
-                </div>
-              </div>
-              <CardContent className="pt-6">
-                <h3 className="text-2xl font-semibold mb-2">Bananadas Artesanais</h3>
-                <p className="text-muted-foreground mb-4">
-                  Feitas com bananas frescas e selecionadas, nossas bananadas mantêm o sabor tradicional que atravessa
-                  gerações. Macias, doces e irresistíveis.
-                </p>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
-                    <CheckCircle className="h-4 w-4" /> 100% Natural
-                  </span>
-                  <span className="flex items-center gap-1 text-muted-foreground text-sm font-medium">
-                    <CheckCircle className="h-4 w-4" /> Sem conservantes
-                  </span>
-                </div>
-                <Button asChild variant="link" className="text-primary p-0 h-auto font-semibold">
-                  <Link to="/produtos" className="flex items-center gap-1">
-                    Ver variações e tamanhos <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
-              <img src={productBanacai} alt="Gomas de Amido" className="w-full h-64 object-cover" />
-              <CardContent className="pt-6">
-                <h3 className="text-2xl font-semibold mb-2">Gomas de Amido</h3>
-                <p className="text-muted-foreground mb-4">
-                  Macias, chinesas e coloridas, nossas gomas de amido são produzidas com ingredientes de primeira
-                  qualidade. Perfeitas para todas as idades.
-                </p>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
-                    <CheckCircle className="h-4 w-4" /> Textura macia
-                  </span>
-                  <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
-                    <CheckCircle className="h-4 w-4" /> Sabor autêntico
-                  </span>
-                </div>
-                <Button asChild variant="link" className="text-primary p-0 h-auto font-semibold">
-                  <Link to="/produtos" className="flex items-center gap-1">
-                    Ver sabores disponíveis <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          {isLoadingFeatured ? (
+            <div className="flex justify-center items-center h-64">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="ml-2 text-lg text-muted-foreground">Carregando produtos em destaque...</p>
+            </div>
+          ) : featuredError ? (
+            <div className="text-center text-red-500 text-lg">
+              Erro ao carregar produtos em destaque: {featuredError.message}
+            </div>
+          ) : featuredProducts && featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
+              {featuredProducts.map((product) => (
+                <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
+                  <div className="relative">
+                    {product.image_url ? (
+                      <img src={product.image_url} alt={product.name} className="w-full h-64 object-cover" />
+                    ) : (
+                      <div className="w-full h-64 bg-muted flex items-center justify-center text-muted-foreground text-lg">
+                        Sem Imagem
+                      </div>
+                    )}
+                    {product.category === 'bananada' && ( // Exemplo de badge condicional
+                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
+                        Nosso Carro-Chefe
+                      </div>
+                    )}
+                  </div>
+                  <CardContent className="pt-6">
+                    <h3 className="text-2xl font-semibold mb-2">{product.name}</h3>
+                    <p className="text-muted-foreground mb-4">
+                      {product.description || 'Nenhuma descrição disponível.'}
+                    </p>
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
+                        <CheckCircle className="h-4 w-4" /> {product.category || 'Produto'}
+                      </span>
+                      <span className="flex items-center gap-1 text-muted-foreground text-sm font-medium">
+                        <CheckCircle className="h-4 w-4" /> R$ {product.price.toFixed(2)}
+                      </span>
+                    </div>
+                    <Button asChild variant="link" className="text-primary p-0 h-auto font-semibold">
+                      <Link to="/produtos" className="flex items-center gap-1">
+                        Ver detalhes <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-xl text-muted-foreground">
+              Nenhum produto em destaque ativo encontrado.
+            </div>
+          )}
 
           <div className="text-center">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 shadow-lg">
               <Link to="/produtos" className="flex items-center gap-2">
-                Ver completo <ArrowRight className="h-5 w-5" />
+                Ver catálogo completo <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
           </div>
