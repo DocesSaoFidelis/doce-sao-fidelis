@@ -14,39 +14,42 @@ import Login from "./pages/Login";
 import { SessionContextProvider } from "./contexts/SessionContext";
 import { AdminLayout } from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
-import AdminProducts from "./pages/admin/Products"; // Importar o novo componente
+import AdminProducts from "./pages/admin/Products";
+import React from "react"; // Importar React para usar React.Fragment
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <SessionContextProvider>
-          <Routes>
-            {/* Rotas Públicas */}
-            <Route path="/" element={<Index />} />
-            <Route path="/historia" element={<Historia />} />
-            <Route path="/produtos" element={<Produtos />} />
-            <Route path="/qualidade" element={<Qualidade />} />
-            <Route path="/contato" element={<Contato />} />
-            <Route path="/orcamento" element={<Orcamento />} />
-            <Route path="/login" element={<Login />} />
+      <React.Fragment> {/* Adicionado React.Fragment aqui */}
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <SessionContextProvider>
+            <Routes>
+              {/* Rotas Públicas */}
+              <Route path="/" element={<Index />} />
+              <Route path="/historia" element={<Historia />} />
+              <Route path="/produtos" element={<Produtos />} />
+              <Route path="/qualidade" element={<Qualidade />} />
+              <Route path="/contato" element={<Contato />} />
+              <Route path="/orcamento" element={<Orcamento />} />
+              <Route path="/login" element={<Login />} />
 
-            {/* Rotas Administrativas */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="products" element={<AdminProducts />} /> {/* Nova rota para produtos */}
-              {/* Futuras rotas de admin serão adicionadas aqui */}
-            </Route>
+              {/* Rotas Administrativas */}
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="products" element={<AdminProducts />} />
+                {/* Futuras rotas de admin serão adicionadas aqui */}
+              </Route>
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </SessionContextProvider>
-      </BrowserRouter>
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </SessionContextProvider>
+        </BrowserRouter>
+      </React.Fragment> {/* Fechamento do React.Fragment */}
     </TooltipProvider>
   </QueryClientProvider>
 );
