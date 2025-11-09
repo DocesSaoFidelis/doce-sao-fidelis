@@ -42,7 +42,7 @@ export const Header = () => {
         <Link to="/" className="flex items-center space-x-2">
           <Heart className="h-8 w-8 text-primary" fill="hsl(var(--primary))" /> {/* Ícone de coração */}
           <span className="text-2xl font-bold text-foreground">Doces São Fidélis</span>
-          <span className="text-sm text-muted-foreground hidden sm:block">Sabor que atravessa gerações</span>
+          {/* Slogan removido para melhor visualização em dispositivos móveis */}
         </Link>
 
         {/* Desktop Navigation */}
