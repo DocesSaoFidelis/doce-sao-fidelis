@@ -19,7 +19,7 @@ const productSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   description: z.string().optional(),
   price: z.coerce.number().min(0.01, 'Preço deve ser maior que zero'),
-  category: z.string().optional(),
+  category: z.string().optional(), // Alterado para string, pois será um input de texto
   stock: z.coerce.number().int().min(0, 'Estoque não pode ser negativo'),
   image_url: z.string().optional(),
   is_active: z.boolean().default(true),
@@ -168,18 +168,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Categoria</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione uma categoria" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="bananada">Bananada</SelectItem>
-                  <SelectItem value="goma">Goma de Amido</SelectItem>
-                  <SelectItem value="especial">Especial</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <Input placeholder="Ex: Bananada, Goma de Amido, Doce de Leite" {...field} /> {/* Alterado para Input */}
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
