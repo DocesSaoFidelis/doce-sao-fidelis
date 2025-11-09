@@ -1,5 +1,5 @@
-import React from 'react';
-import { Newspaper, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Newspaper, Loader2, Search } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Tables } from '@/integrations/supabase/types';
@@ -11,10 +11,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Input } from '@/components/ui/input'; // Import Input for the filter
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 const AdminNewsletter = () => {
+  const [filterTerm, setFilterTerm] = useState('');
+
   const { data: subscriptions, isLoading, error } = useQuery<Tables<'newsletter_subscriptions'>[]>({
     queryKey: ['newsletterSubscriptions'],
     queryFn: async () => {
@@ -26,6 +29,13 @@ const AdminNewsletter = () => {
       return data;
     },
   });
+
+  const filteredSubscriptions = subscriptions?.filter(
+    (subscription) =>
+      subscription.email.toLowerCase().includes(filterTerm.toLowerCase()) ||
+      (subscription.name && subscription.name.toLowerCase().includes(filterTerm.toLowerCase())) ||
+      (subscription.whatsapp && subscription.whatsapp.toLowerCase().includes(filterTerm.toLowerCase()))
+  );
 
   if (isLoading) {
     return (
@@ -61,21 +71,35 @@ const AdminNewsletter = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">Gestão de Newsletter</h2>
+        <h2 className="text-3xl font-bold tracking-tight">Inscrições na Newsletter</h2>
       </div>
 
-      {subscriptions && subscriptions.length > 0 ? (
+      <div className="relative">
+        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Filtrar e-mails, nomes ou WhatsApp..."
+          value={filterTerm}
+          onChange={(e) => setFilterTerm(e.target.value)}
+          className="pl-8"
+        />
+      </div>
+
+      {filteredSubscriptions && filteredSubscriptions.length > 0 ? (
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Nome</TableHead>
               <TableHead>E-mail</TableHead>
+              <TableHead>WhatsApp</TableHead>
               <TableHead>Data de Inscrição</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {subscriptions.map((subscription) => (
+            {filteredSubscriptions.map((subscription) => (
               <TableRow key={subscription.id}>
-                <TableCell className="font-medium">{subscription.email}</TableCell>
+                <TableCell className="font-medium">{subscription.name || 'N/A'}</TableCell>
+                <TableCell>{subscription.email}</TableCell>
+                <TableCell>{subscription.whatsapp || 'N/A'}</TableCell>
                 <TableCell>
                   {subscription.created_at
                     ? format(new Date(subscription.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })
@@ -93,7 +117,7 @@ const AdminNewsletter = () => {
               Nenhum Assinante Encontrado
             </h3>
             <p className="text-sm text-muted-foreground">
-              Ainda não há e-mails cadastrados na newsletter.
+              Ainda não há e-mails cadastrados na newsletter ou nenhum corresponde ao filtro.
             </p>
           </div>
         </div>

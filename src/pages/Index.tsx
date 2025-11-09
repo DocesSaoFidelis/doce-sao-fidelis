@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label"; // Import Label for new fields
 import { Link } from "react-router-dom";
 import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2, ShoppingCart } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
@@ -17,7 +18,9 @@ import { toast } from "sonner";
 
 // Esquema de validação para o e-mail da newsletter
 const newsletterSchema = z.object({
+  name: z.string().optional(), // Adicionado campo nome (opcional)
   email: z.string().email("Por favor, insira um e-mail válido.").min(1, "O e-mail é obrigatório."),
+  whatsapp: z.string().optional(), // Adicionado campo whatsapp (opcional)
 });
 
 type NewsletterFormValues = z.infer<typeof newsletterSchema>;
@@ -40,7 +43,9 @@ const Index = () => {
   const form = useForm<NewsletterFormValues>({
     resolver: zodResolver(newsletterSchema),
     defaultValues: {
+      name: "",
       email: "",
+      whatsapp: "",
     },
   });
 
@@ -48,7 +53,11 @@ const Index = () => {
     try {
       const { error } = await supabase
         .from('newsletter_subscriptions')
-        .insert({ email: values.email });
+        .insert({ 
+          email: values.email,
+          name: values.name || null, // Inserir nome se fornecido
+          whatsapp: values.whatsapp || null, // Inserir whatsapp se fornecido
+        });
 
       if (error) {
         if (error.code === '23505') { // Código de erro para violação de restrição UNIQUE
@@ -123,20 +132,44 @@ const Index = () => {
                 <Mail className="h-4 w-4" /> Fique por dentro das novidades
               </div>
               <h2 className="text-2xl font-bold mb-4">Cadastre-se para receber ofertas especiais e lançamentos</h2>
-              <form onSubmit={form.handleSubmit(handleNewsletterSubmit)} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <Input 
-                  type="email" 
-                  placeholder="Seu melhor e-mail" 
-                  className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
-                  {...form.register("email")}
-                />
+              <form onSubmit={form.handleSubmit(handleNewsletterSubmit)} className="flex flex-col gap-4 max-w-md mx-auto">
+                <div>
+                  <Label htmlFor="newsletter-name" className="sr-only">Nome</Label>
+                  <Input 
+                    id="newsletter-name"
+                    type="text" 
+                    placeholder="Seu nome (opcional)" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("name")}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="newsletter-email" className="sr-only">E-mail</Label>
+                  <Input 
+                    id="newsletter-email"
+                    type="email" 
+                    placeholder="Seu melhor e-mail" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("email")}
+                  />
+                  {form.formState.errors.email && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.email.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="newsletter-whatsapp" className="sr-only">WhatsApp</Label>
+                  <Input 
+                    id="newsletter-whatsapp"
+                    type="tel" 
+                    placeholder="Seu WhatsApp (opcional)" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("whatsapp")}
+                  />
+                </div>
                 <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? "Cadastrando..." : "Cadastrar"}
                 </Button>
               </form>
-              {form.formState.errors.email && (
-                <p className="text-red-500 text-sm mt-2">{form.formState.errors.email.message}</p>
-              )}
             </CardContent>
           </Card>
         </div>

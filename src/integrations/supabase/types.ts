@@ -19,16 +19,22 @@ export type Database = {
           created_at: string | null
           email: string
           id: string
+          name: string | null // Added
+          whatsapp: string | null // Added
         }
         Insert: {
           created_at?: string | null
           email: string
           id?: string
+          name?: string | null // Added
+          whatsapp?: string | null // Added
         }
         Update: {
           created_at?: string | null
           email?: string
           id?: string
+          name?: string | null // Added
+          whatsapp?: string | null // Added
         }
         Relationships: []
       }
