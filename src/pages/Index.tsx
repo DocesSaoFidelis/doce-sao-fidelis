@@ -44,7 +44,7 @@ const Index = () => {
     resolver: zodResolver(newsletterSchema),
     defaultValues: {
       name: "",
-      email: "",
+            email: "",
       whatsapp: "",
     },
   });
@@ -123,37 +123,36 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Nossa História (Restyled) - MOVED HERE */}
+      {/* Nossa História (Restyled) */}
       <section className="py-20 bg-accent">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="rounded-xl overflow-hidden shadow-xl">
-              <img src={factoryImage} alt="Nossa História" className="w-full h-auto object-cover" />
-            </div>
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 text-sm font-semibold">
-                <MapPin className="h-4 w-4" /> São Fidélis, RJ
-              </div>
-              <h2 className="text-4xl font-bold mb-4">Uma Tradição que Começou em 2000</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                A Doces São Fidélis nasceu do amor pela culinária tradicional e do desejo de compartilhar
-                sabores autênticos que atravessam gerações. Produzindo cada doce com o mesmo carinho e dedicação desde o primeiro dia. Nossa missão é levar o sabor da tradição para famílias em todo o Brasil.
-              </p>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="flex items-center gap-2 text-primary font-medium">
-                  <CheckCircle className="h-5 w-5" /> Receitas tradicionais preservadas
-                </span>
-                <span className="flex items-center gap-2 text-green-600 font-medium">
-                  <Leaf className="h-5 w-5" /> Ingredientes naturais selecionados
-                </span>
-              </div>
-              <Button asChild variant="link" className="text-primary p-0 h-auto text-lg font-semibold">
-                <Link to="/historia" className="flex items-center gap-2">
-                  Conheça nossa história completa <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
+        <div className="container max-w-4xl mx-auto text-center"> {/* Centralizado e largura máxima */}
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 text-sm font-semibold">
+            <MapPin className="h-4 w-4" /> São Fidélis, RJ
           </div>
+          <h2 className="text-4xl font-bold mb-6">Uma Tradição que Começou em 2000</h2>
+          
+          {/* Imagem movida para cá, abaixo do título */}
+          <div className="rounded-xl overflow-hidden shadow-xl mb-8 max-w-2xl mx-auto"> {/* Adicionado max-w e mx-auto para centralizar */}
+            <img src={factoryImage} alt="Nossa História" className="w-full h-auto object-cover" />
+          </div>
+
+          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            A Doces São Fidélis nasceu do amor pela culinária tradicional e do desejo de compartilhar
+            sabores autênticos que atravessam gerações. Produzindo cada doce com o mesmo carinho e dedicação desde o primeiro dia. Nossa missão é levar o sabor da tradição para famílias em todo o Brasil.
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-4 mb-8"> {/* flex-wrap para responsividade */}
+            <span className="flex items-center gap-2 text-primary font-medium">
+              <CheckCircle className="h-5 w-5" /> Receitas tradicionais preservadas
+            </span>
+            <span className="flex items-center gap-2 text-green-600 font-medium">
+              <Leaf className="h-5 w-5" /> Ingredientes naturais selecionados
+            </span>
+          </div>
+          <Button asChild variant="link" className="text-primary p-0 h-auto text-lg font-semibold">
+            <Link to="/historia" className="flex items-center gap-2 mx-auto w-fit"> {/* Centralizado */}
+              Conheça nossa história completa <ArrowRight className="h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </section>
 
