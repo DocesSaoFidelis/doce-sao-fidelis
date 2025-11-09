@@ -15,13 +15,16 @@ import { SessionContextProvider } from "./contexts/SessionContext";
 import { AdminLayout } from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
+import AdminQuotations from "./pages/admin/Quotations"; // Importar nova página
+import AdminContacts from "./pages/admin/Contacts";     // Importar nova página
+import AdminNewsletter from "./pages/admin/Newsletter"; // Importar nova página
 import React from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <React.Fragment> {/* Adicionado React.Fragment para envolver todos os filhos do QueryClientProvider */}
+    <React.Fragment>
       <Toaster />
       <Sonner />
       <TooltipProvider>
@@ -41,6 +44,9 @@ const App = () => (
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="products" element={<AdminProducts />} />
+                <Route path="quotations" element={<AdminQuotations />} /> {/* Nova rota */}
+                <Route path="contacts" element={<AdminContacts />} />     {/* Nova rota */}
+                <Route path="newsletter" element={<AdminNewsletter />} /> {/* Nova rota */}
                 {/* Futuras rotas de admin serão adicionadas aqui */}
               </Route>
 
@@ -50,7 +56,7 @@ const App = () => (
           </SessionContextProvider>
         </BrowserRouter>
       </TooltipProvider>
-    </React.Fragment> {/* Fechamento do React.Fragment */}
+    </React.Fragment>
   </QueryClientProvider>
 );
 
