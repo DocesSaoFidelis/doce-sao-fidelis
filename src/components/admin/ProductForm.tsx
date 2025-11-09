@@ -194,18 +194,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             <Input type="file" accept="image/*" onChange={handleFileChange} />
           </FormControl>
           <FormDescription>
-            <React.Fragment> {/* Envolvido em React.Fragment para garantir um único filho */}
-              {product?.image_url && !selectedFile && (
-                <span className="text-sm text-muted-foreground mt-2 block">
-                  Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
-                </span>
-              )}
-              {selectedFile && (
-                <span className="text-sm text-muted-foreground mt-2 block">
-                  Arquivo selecionado: {selectedFile.name}
-                </span>
-              )}
-            </React.Fragment>
+            {product?.image_url && !selectedFile ? (
+              <span className="text-sm text-muted-foreground mt-2 block">
+                Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
+              </span>
+            ) : selectedFile ? (
+              <span className="text-sm text-muted-foreground mt-2 block">
+                Arquivo selecionado: {selectedFile.name}
+              </span>
+            ) : (
+              // Fallback para garantir que FormDescription sempre tenha um único filho, mesmo que oculto
+              <span className="sr-only">Nenhuma imagem selecionada ou imagem atual exibida.</span>
+            )}
           </FormDescription>
           <FormMessage />
         </FormItem>
