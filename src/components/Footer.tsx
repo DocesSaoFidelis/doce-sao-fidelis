@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Heart } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
+import logoDocesSF from "@/assets/logo_Doces_Sao_Fidelis.png"; // Importar a nova logomarca
 
 export const Footer = () => {
   return (
@@ -27,8 +27,8 @@ export const Footer = () => {
           {/* Logo e Descrição */}
           <div className="col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <Heart className="h-8 w-8 text-primary" fill="hsl(var(--primary))" />
-              <span className="text-2xl font-bold">Doces São Fidélis</span>
+              <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-12 w-auto" /> {/* Nova logomarca */}
+              <span className="text-2xl font-bold sr-only">Doces São Fidélis</span> {/* Texto oculto para acessibilidade */}
             </Link>
             <p className="text-sm opacity-90">
               Desde 2000 produzindo bananadas e gomas de amido com tradição e qualidade que atravessam gerações.

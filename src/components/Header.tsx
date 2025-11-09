@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-import { Menu, LogIn, LayoutDashboard, Heart, Phone, Mail } from "lucide-react";
+import { Menu, LogIn, LayoutDashboard, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import logo from "@/assets/logo.png"; // Manter o import do logo para o favicon ou caso precise em outro lugar
+import logoDocesSF from "@/assets/logo_Doces_Sao_Fidelis.png"; // Importar a nova logomarca
 import { useSession } from "@/contexts/SessionContext";
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Nossa História", href: "/historia" },
-  { label: "Catálogo", href: "/produtos" }, // Alterado para Catálogo
+  { label: "Catálogo", href: "/produtos" },
   { label: "Qualidade", href: "/qualidade" },
   { label: "Contato", href: "/contato" },
 ];
@@ -40,8 +40,8 @@ export const Header = () => {
       {/* Main Header */}
       <div className="container flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <Heart className="h-8 w-8 text-primary" fill="hsl(var(--primary))" /> {/* Ícone de coração */}
-          <span className="text-xl md:text-2xl font-bold text-foreground">Doces São Fidélis</span>
+          <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-12 w-auto" /> {/* Nova logomarca */}
+          <span className="text-xl md:text-2xl font-bold text-foreground sr-only">Doces São Fidélis</span> {/* Texto oculto para acessibilidade, já que a logo tem o nome */}
         </Link>
 
         {/* Desktop Navigation */}
