@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button"; // Importar Button
-import logo from "@/assets/logo.png"; // Manter o import do logo para o favicon ou caso precise em outro lugar
+import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
@@ -57,7 +57,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Phone className="h-5 w-5 flex-shrink-0 text-primary" />
-                <a href="tel:3298484644" className="hover:opacity-100 transition-opacity">(32) 98848-4644</a>
+                <a href="https://wa.me/5532988484644" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">(32) 98848-4644</a>
               </li>
               <li className="flex items-center gap-2 text-sm opacity-90">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" />
