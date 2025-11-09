@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label"; // Import Label for new fields
+import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2, ShoppingCart } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
@@ -18,9 +18,9 @@ import { toast } from "sonner";
 
 // Esquema de validação para o e-mail da newsletter
 const newsletterSchema = z.object({
-  name: z.string().optional(), // Adicionado campo nome (opcional)
+  name: z.string().min(1, "O nome é obrigatório."), // Tornando nome obrigatório
   email: z.string().email("Por favor, insira um e-mail válido.").min(1, "O e-mail é obrigatório."),
-  whatsapp: z.string().optional(), // Adicionado campo whatsapp (opcional)
+  whatsapp: z.string().min(1, "O WhatsApp é obrigatório."), // Tornando WhatsApp obrigatório
 });
 
 type NewsletterFormValues = z.infer<typeof newsletterSchema>;
@@ -55,8 +55,8 @@ const Index = () => {
         .from('newsletter_subscriptions')
         .insert({ 
           email: values.email,
-          name: values.name || null, // Inserir nome se fornecido
-          whatsapp: values.whatsapp || null, // Inserir whatsapp se fornecido
+          name: values.name, // Nome agora é obrigatório
+          whatsapp: values.whatsapp, // WhatsApp agora é obrigatório
         });
 
       if (error) {
@@ -138,10 +138,13 @@ const Index = () => {
                   <Input 
                     id="newsletter-name"
                     type="text" 
-                    placeholder="Seu nome (opcional)" 
+                    placeholder="Seu nome" 
                     className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
                     {...form.register("name")}
                   />
+                  {form.formState.errors.name && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.name.message}</p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="newsletter-email" className="sr-only">E-mail</Label>
@@ -161,10 +164,13 @@ const Index = () => {
                   <Input 
                     id="newsletter-whatsapp"
                     type="tel" 
-                    placeholder="Seu WhatsApp (opcional)" 
+                    placeholder="Seu WhatsApp" 
                     className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
                     {...form.register("whatsapp")}
                   />
+                  {form.formState.errors.whatsapp && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.whatsapp.message}</p>
+                  )}
                 </div>
                 <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md" disabled={form.formState.isSubmitting}>
                   {form.formState.isSubmitting ? "Cadastrando..." : "Cadastrar"}
