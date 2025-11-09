@@ -186,7 +186,7 @@ const Index = () => {
               Erro ao carregar produtos em destaque: {featuredError.message}
             </div>
           ) : featuredProducts && featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12"> {/* Alterado aqui */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12 justify-center"> {/* Adicionado justify-center aqui */}
               {featuredProducts.map((product) => (
                 <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg">
                   <div className="relative h-48 w-full">
