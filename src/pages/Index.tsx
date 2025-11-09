@@ -4,12 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2, ShoppingCart } from "lucide-react"; // Adicionado ShoppingCart
+import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2, ShoppingCart } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 import factoryImage from "@/assets/factory.jpg";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { toast } from "sonner";
+
+// Esquema de validação para o e-mail da newsletter
+const newsletterSchema = z.object({
+  email: z.string().email("Por favor, insira um e-mail válido.").min(1, "O e-mail é obrigatório."),
+});
+
+type NewsletterFormValues = z.infer<typeof newsletterSchema>;
 
 const Index = () => {
   const { data: featuredProducts, isLoading: isLoadingFeatured, error: featuredError } = useQuery<Tables<'products'>[]>({
@@ -18,13 +29,48 @@ const Index = () => {
       const { data, error } = await supabase
         .from('products')
         .select('*')
-        .eq('is_active', true) // Apenas produtos ativos
+        .eq('is_active', true)
         .order('created_at', { ascending: false })
-        .limit(10); // Limita a 10 produtos em destaque para preencher a grade
+        .limit(10);
       if (error) throw error;
       return data;
     },
   });
+
+  const form = useForm<NewsletterFormValues>({
+    resolver: zodResolver(newsletterSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const handleNewsletterSubmit = async (values: NewsletterFormValues) => {
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert({ email: values.email });
+
+      if (error) {
+        if (error.code === '23505') { // Código de erro para violação de restrição UNIQUE
+          toast.warning("Você já está inscrito na nossa newsletter!", {
+            description: "O e-mail fornecido já está em nossa lista.",
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast.success("Inscrição realizada com sucesso!", {
+          description: "Obrigado por se inscrever na nossa newsletter!",
+        });
+        form.reset(); // Limpa o campo do formulário
+      }
+    } catch (error: any) {
+      console.error("Erro ao inscrever na newsletter:", error);
+      toast.error("Erro ao inscrever na newsletter", {
+        description: error.message || "Ocorreu um erro inesperado. Tente novamente.",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -77,16 +123,20 @@ const Index = () => {
                 <Mail className="h-4 w-4" /> Fique por dentro das novidades
               </div>
               <h2 className="text-2xl font-bold mb-4">Cadastre-se para receber ofertas especiais e lançamentos</h2>
-              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <form onSubmit={form.handleSubmit(handleNewsletterSubmit)} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <Input 
                   type="email" 
                   placeholder="Seu melhor e-mail" 
                   className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                  {...form.register("email")}
                 />
-                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md">
-                  Cadastrar
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? "Cadastrando..." : "Cadastrar"}
                 </Button>
               </form>
+              {form.formState.errors.email && (
+                <p className="text-red-500 text-sm mt-2">{form.formState.errors.email.message}</p>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -186,12 +236,12 @@ const Index = () => {
               Erro ao carregar produtos em destaque: {featuredError.message}
             </div>
           ) : featuredProducts && featuredProducts.length > 0 ? (
-            <div className="flex flex-wrap justify-center gap-4 mb-12"> {/* Alterado para flexbox */}
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
               {featuredProducts.map((product) => (
                 <Card 
                   key={product.id} 
                   className="w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.66rem)] lg:w-[calc(25%-0.75rem)] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg"
-                > {/* Larguras calculadas para simular colunas */}
+                >
                   <div className="relative h-48 w-full">
                     {product.image_url ? (
                       <img src={product.image_url} alt={product.name} className="w-full h-full object-cover rounded-t-lg" />
