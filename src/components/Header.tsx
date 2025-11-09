@@ -40,8 +40,8 @@ export const Header = () => {
       {/* Main Header */}
       <div className="container flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" /> {/* Alterado de h-12 para h-16 */}
-          <span className="text-xl md:text-2xl font-bold text-foreground sr-only">Doces São Fidélis</span>
+          <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" />
+          <span className="text-xl md:text-2xl font-bold text-foreground md:sr-only">Doces São Fidélis</span> {/* Alterado para md:sr-only */}
         </Link>
 
         {/* Desktop Navigation */}
@@ -84,6 +84,13 @@ export const Header = () => {
           </SheetTrigger>
           <SheetContent>
             <nav className="flex flex-col space-y-4 mt-8">
+              <Link
+                  to="/admin"
+                  className="flex items-center gap-2 text-lg font-semibold"
+                >
+                  <LayoutDashboard className="h-6 w-6" />
+                  <span>Admin Doces SF</span> {/* Removido sr-only para mobile */}
+                </Link>
               {navItems.map((item) => (
                 <Link
                   key={item.href}

@@ -95,7 +95,7 @@ export const AdminLayout: React.FC = () => {
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
                   <LayoutDashboard className="h-6 w-6" />
-                  <span className="sr-only">Admin Doces SF</span>
+                  <span>Admin Doces SF</span> {/* Removido sr-only para mobile */}
                 </Link>
                 {adminNavItems.map((item) => (
                   <Link
