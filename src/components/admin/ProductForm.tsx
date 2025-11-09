@@ -194,16 +194,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
             <Input type="file" accept="image/*" onChange={handleFileChange} />
           </FormControl>
           <FormDescription>
-            {product?.image_url && !selectedFile && (
-              <span className="text-sm text-muted-foreground mt-2 block"> {/* Alterado de <p> para <span> e adicionado block */}
-                Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
-              </span>
-            )}
-            {selectedFile && (
-              <span className="text-sm text-muted-foreground mt-2 block"> {/* Alterado de <p> para <span> e adicionado block */}
-                Arquivo selecionado: {selectedFile.name}
-              </span>
-            )}
+            <React.Fragment> {/* Envolvido em React.Fragment para garantir um único filho */}
+              {product?.image_url && !selectedFile && (
+                <span className="text-sm text-muted-foreground mt-2 block">
+                  Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
+                </span>
+              )}
+              {selectedFile && (
+                <span className="text-sm text-muted-foreground mt-2 block">
+                  Arquivo selecionado: {selectedFile.name}
+                </span>
+              )}
+            </React.Fragment>
           </FormDescription>
           <FormMessage />
         </FormItem>
