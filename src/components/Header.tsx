@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, LogIn, LayoutDashboard } from "lucide-react"; // Adicionado LogIn e LayoutDashboard
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -7,6 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import logo from "@/assets/logo.png";
+import { useSession } from "@/contexts/SessionContext"; // Importado useSession
 
 const navItems = [
   { label: "Início", href: "/" },
@@ -17,6 +18,8 @@ const navItems = [
 ];
 
 export const Header = () => {
+  const { session, isLoading } = useSession(); // Usando o hook de sessão
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="container flex h-20 items-center justify-between">
@@ -39,6 +42,21 @@ export const Header = () => {
           <Button asChild variant="default" className="bg-secondary hover:bg-secondary/90">
             <Link to="/orcamento">Solicitar Orçamento</Link>
           </Button>
+
+          {/* Botão Admin/Login */}
+          {!isLoading && ( // Só renderiza o botão depois de carregar o status da sessão
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              {session ? (
+                <Link to="/admin">
+                  <LayoutDashboard className="mr-2 h-4 w-4" /> Área Admin
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <LogIn className="mr-2 h-4 w-4" /> Login
+                </Link>
+              )}
+            </Button>
+          )}
         </nav>
 
         {/* Mobile Navigation */}
@@ -62,6 +80,21 @@ export const Header = () => {
               <Button asChild variant="default" className="bg-secondary hover:bg-secondary/90 mt-4">
                 <Link to="/orcamento">Solicitar Orçamento</Link>
               </Button>
+
+              {/* Botão Admin/Login para Mobile */}
+              {!isLoading && (
+                <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground mt-2">
+                  {session ? (
+                    <Link to="/admin">
+                      <LayoutDashboard className="mr-2 h-4 w-4" /> Área Admin
+                    </Link>
+                  ) : (
+                    <Link to="/login">
+                      <LogIn className="mr-2 h-4 w-4" /> Login
+                    </Link>
+                  )}
+                </Button>
+              )}
             </nav>
           </SheetContent>
         </Sheet>
