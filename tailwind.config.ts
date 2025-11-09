@@ -62,7 +62,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "logo-red": "hsl(var(--logo-red))", // Adicionando a nova cor
       },
       borderRadius: {
         lg: "1rem", /* Aumentado para bordas mais arredondadas */

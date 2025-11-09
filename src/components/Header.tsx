@@ -23,7 +23,7 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-card shadow-sm">
       {/* Top Bar */}
-      <div className="bg-logo-red text-primary-foreground text-sm py-2 hidden md:block"> {/* Alterado de bg-primary para bg-logo-red */}
+      <div className="bg-primary text-primary-foreground text-sm py-2 hidden md:block"> {/* Restaurado para bg-primary */}
         <div className="container flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <a href="tel:3298484644" className="flex items-center gap-1 hover:underline">
