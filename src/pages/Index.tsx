@@ -186,37 +186,38 @@ const Index = () => {
               Erro ao carregar produtos em destaque: {featuredError.message}
             </div>
           ) : featuredProducts && featuredProducts.length > 0 ? (
-            <div className="flex justify-center"> {/* Novo contêiner flex para centralizar a grade */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12"> {/* Removido justify-center daqui */}
-                {featuredProducts.map((product) => (
-                  <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg">
-                    <div className="relative h-48 w-full">
-                      {product.image_url ? (
-                        <img src={product.image_url} alt={product.name} className="w-full h-full object-cover rounded-t-lg" />
-                      ) : (
-                        <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-sm rounded-t-lg">
-                          Sem Imagem
-                        </div>
-                      )}
-                      <Button variant="ghost" size="icon" className="absolute bottom-2 right-2 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md">
-                        <ShoppingCart className="h-5 w-5" />
-                      </Button>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="text-lg font-semibold text-foreground mb-1">{product.name}</h3>
-                      <div className="flex items-center text-yellow-500 text-sm mb-2">
-                        <Star fill="currentColor" className="h-4 w-4" />
-                        <Star fill="currentColor" className="h-4 w-4" />
-                        <Star fill="currentColor" className="h-4 w-4" />
-                        <Star fill="currentColor" className="h-4 w-4" />
-                        <Star fill="currentColor" className="h-4 w-4" />
-                        <span className="ml-1 text-muted-foreground text-xs">5.0</span>
+            <div className="flex flex-wrap justify-center gap-4 mb-12"> {/* Alterado para flexbox */}
+              {featuredProducts.map((product) => (
+                <Card 
+                  key={product.id} 
+                  className="w-full sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.66rem)] lg:w-[calc(25%-0.75rem)] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg"
+                > {/* Larguras calculadas para simular colunas */}
+                  <div className="relative h-48 w-full">
+                    {product.image_url ? (
+                      <img src={product.image_url} alt={product.name} className="w-full h-full object-cover rounded-t-lg" />
+                    ) : (
+                      <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-sm rounded-t-lg">
+                        Sem Imagem
                       </div>
-                      <p className="text-xl font-bold text-foreground">R$ {product.price.toFixed(2)}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    )}
+                    <Button variant="ghost" size="icon" className="absolute bottom-2 right-2 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md">
+                      <ShoppingCart className="h-5 w-5" />
+                    </Button>
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="text-lg font-semibold text-foreground mb-1">{product.name}</h3>
+                    <div className="flex items-center text-yellow-500 text-sm mb-2">
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <span className="ml-1 text-muted-foreground text-xs">5.0</span>
+                    </div>
+                    <p className="text-xl font-bold text-foreground">R$ {product.price.toFixed(2)}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           ) : (
             <div className="text-center text-xl text-muted-foreground">
