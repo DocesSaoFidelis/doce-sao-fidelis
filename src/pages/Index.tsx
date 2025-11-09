@@ -123,61 +123,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Newsletter Section (Moved up) */}
+      {/* Nossa História (Restyled) - MOVED HERE */}
       <section className="py-20 bg-accent">
         <div className="container">
-          <Card className="max-w-2xl mx-auto text-center p-8 shadow-xl rounded-xl">
-            <CardContent className="pt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="rounded-xl overflow-hidden shadow-xl">
+              <img src={factoryImage} alt="Nossa História" className="w-full h-auto object-cover" />
+            </div>
+            <div className="space-y-6">
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 text-sm font-semibold">
-                <Mail className="h-4 w-4" /> Fique por dentro das novidades
+                <MapPin className="h-4 w-4" /> São Fidélis, RJ
               </div>
-              <h2 className="text-2xl font-bold mb-4">Cadastre-se para receber ofertas especiais e lançamentos</h2>
-              <form onSubmit={form.handleSubmit(handleNewsletterSubmit)} className="flex flex-col gap-4 max-w-md mx-auto">
-                <div>
-                  <Label htmlFor="newsletter-name" className="sr-only">Nome</Label>
-                  <Input 
-                    id="newsletter-name"
-                    type="text" 
-                    placeholder="Seu nome" 
-                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
-                    {...form.register("name")}
-                  />
-                  {form.formState.errors.name && (
-                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.name.message}</p>
-                  )}
-                </div>
-                <div>
-                  <Label htmlFor="newsletter-email" className="sr-only">E-mail</Label>
-                  <Input 
-                    id="newsletter-email"
-                    type="email" 
-                    placeholder="Seu melhor e-mail" 
-                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
-                    {...form.register("email")}
-                  />
-                  {form.formState.errors.email && (
-                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.email.message}</p>
-                  )}
-                </div>
-                <div>
-                  <Label htmlFor="newsletter-whatsapp" className="sr-only">WhatsApp</Label>
-                  <Input 
-                    id="newsletter-whatsapp"
-                    type="tel" 
-                    placeholder="Seu WhatsApp" 
-                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
-                    {...form.register("whatsapp")}
-                  />
-                  {form.formState.errors.whatsapp && (
-                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.whatsapp.message}</p>
-                  )}
-                </div>
-                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting ? "Cadastrando..." : "Cadastrar"}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+              <h2 className="text-4xl font-bold mb-4">Uma Tradição que Começou em 2000</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                A Doces São Fidélis nasceu do amor pela culinária tradicional e do desejo de compartilhar
+                sabores autênticos que atravessam gerações. Produzindo cada doce com o mesmo carinho e dedicação desde o primeiro dia. Nossa missão é levar o sabor da tradição para famílias em todo o Brasil.
+              </p>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="flex items-center gap-2 text-primary font-medium">
+                  <CheckCircle className="h-5 w-5" /> Receitas tradicionais preservadas
+                </span>
+                <span className="flex items-center gap-2 text-green-600 font-medium">
+                  <Leaf className="h-5 w-5" /> Ingredientes naturais selecionados
+                </span>
+              </div>
+              <Button asChild variant="link" className="text-primary p-0 h-auto text-lg font-semibold">
+                <Link to="/historia" className="flex items-center gap-2">
+                  Conheça nossa história completa <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -212,40 +188,6 @@ const Index = () => {
               </div>
               <h3 className="text-lg font-semibold mb-2">Entrega Nacional</h3>
               <p className="text-muted-foreground text-sm">Participamos de vários estados brasileiros</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Nossa História (Restyled) */}
-      <section className="py-20 bg-accent">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="rounded-xl overflow-hidden shadow-xl">
-              <img src={factoryImage} alt="Nossa História" className="w-full h-auto object-cover" />
-            </div>
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 text-sm font-semibold">
-                <MapPin className="h-4 w-4" /> São Fidélis, RJ
-              </div>
-              <h2 className="text-4xl font-bold mb-4">Uma Tradição que Começou em 2000</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                A Doces São Fidélis nasceu do amor pela culinária tradicional e do desejo de compartilhar
-                sabores autênticos que atravessam gerações. Produzindo cada doce com o mesmo carinho e dedicação desde o primeiro dia. Nossa missão é levar o sabor da tradição para famílias em todo o Brasil.
-              </p>
-              <div className="flex items-center gap-4 mb-6">
-                <span className="flex items-center gap-2 text-primary font-medium">
-                  <CheckCircle className="h-5 w-5" /> Receitas tradicionais preservadas
-                </span>
-                <span className="flex items-center gap-2 text-green-600 font-medium">
-                  <Leaf className="h-5 w-5" /> Ingredientes naturais selecionados
-                </span>
-              </div>
-              <Button asChild variant="link" className="text-primary p-0 h-auto text-lg font-semibold">
-                <Link to="/historia" className="flex items-center gap-2">
-                  Conheça nossa história completa <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
             </div>
           </div>
         </div>
@@ -487,6 +429,64 @@ const Index = () => {
               <p className="text-xl text-foreground">Artesanal</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section (Moved to near footer) */}
+      <section className="py-20 bg-accent">
+        <div className="container">
+          <Card className="max-w-2xl mx-auto text-center p-8 shadow-xl rounded-xl">
+            <CardContent className="pt-6">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4 text-sm font-semibold">
+                <Mail className="h-4 w-4" /> Fique por dentro das novidades
+              </div>
+              <h2 className="text-2xl font-bold mb-4">Cadastre-se para receber ofertas especiais e lançamentos</h2>
+              <form onSubmit={form.handleSubmit(handleNewsletterSubmit)} className="flex flex-col gap-4 max-w-md mx-auto">
+                <div>
+                  <Label htmlFor="newsletter-name" className="sr-only">Nome</Label>
+                  <Input 
+                    id="newsletter-name"
+                    type="text" 
+                    placeholder="Seu nome" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("name")}
+                  />
+                  {form.formState.errors.name && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.name.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="newsletter-email" className="sr-only">E-mail</Label>
+                  <Input 
+                    id="newsletter-email"
+                    type="email" 
+                    placeholder="Seu melhor e-mail" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("email")}
+                  />
+                  {form.formState.errors.email && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.email.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="newsletter-whatsapp" className="sr-only">WhatsApp</Label>
+                  <Input 
+                    id="newsletter-whatsapp"
+                    type="tel" 
+                    placeholder="Seu WhatsApp" 
+                    className="flex-1 bg-muted/50 border-muted-foreground/20 text-foreground placeholder:text-muted-foreground rounded-full px-5 py-3"
+                    {...form.register("whatsapp")}
+                  />
+                  {form.formState.errors.whatsapp && (
+                    <p className="text-red-500 text-sm mt-2 text-left">{form.formState.errors.whatsapp.message}</p>
+                  )}
+                </div>
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 py-3 shadow-md" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? "Cadastrando..." : "Cadastrar"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
