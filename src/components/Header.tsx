@@ -23,7 +23,7 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-card shadow-sm">
       {/* Top Bar */}
-      <div className="bg-primary text-primary-foreground text-sm py-2 hidden md:block"> {/* Restaurado para bg-primary */}
+      <div className="bg-primary text-primary-foreground text-sm py-2 hidden md:block">
         <div className="container flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <a href="tel:3298484644" className="flex items-center gap-1 hover:underline">
@@ -40,8 +40,8 @@ export const Header = () => {
       {/* Main Header */}
       <div className="container flex h-20 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-12 w-auto" /> {/* Nova logomarca */}
-          <span className="text-xl md:text-2xl font-bold text-foreground sr-only">Doces São Fidélis</span> {/* Texto oculto para acessibilidade, já que a logo tem o nome */}
+          <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" /> {/* Alterado de h-12 para h-16 */}
+          <span className="text-xl md:text-2xl font-bold text-foreground sr-only">Doces São Fidélis</span>
         </Link>
 
         {/* Desktop Navigation */}

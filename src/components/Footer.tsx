@@ -27,8 +27,8 @@ export const Footer = () => {
           {/* Logo e Descrição */}
           <div className="col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-12 w-auto" /> {/* Nova logomarca */}
-              <span className="text-2xl font-bold sr-only">Doces São Fidélis</span> {/* Texto oculto para acessibilidade */}
+              <img src={logoDocesSF} alt="Doces São Fidélis Logo" className="h-16 w-auto" /> {/* Alterado de h-12 para h-16 */}
+              <span className="text-2xl font-bold sr-only">Doces São Fidélis</span>
             </Link>
             <p className="text-sm opacity-90">
               Desde 2000 produzindo bananadas e gomas de amido com tradição e qualidade que atravessam gerações.
