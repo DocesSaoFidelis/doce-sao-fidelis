@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2 } from "lucide-react";
+import { Award, Heart, Leaf, Mail, ArrowRight, Factory, CheckCircle, MapPin, Star, Users, Package, Loader2, ShoppingCart } from "lucide-react"; // Adicionado ShoppingCart
 import heroBanner from "@/assets/hero-banner.jpg";
 import factoryImage from "@/assets/factory.jpg";
 import { useQuery } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ const Index = () => {
         .select('*')
         .eq('is_active', true) // Apenas produtos ativos
         .order('created_at', { ascending: false })
-        .limit(2); // Limita a 2 produtos em destaque
+        .limit(10); // Limita a 10 produtos em destaque para preencher a grade
       if (error) throw error;
       return data;
     },
@@ -186,41 +186,32 @@ const Index = () => {
               Erro ao carregar produtos em destaque: {featuredError.message}
             </div>
           ) : featuredProducts && featuredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-12">
               {featuredProducts.map((product) => (
-                <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-xl">
-                  <div className="relative">
+                <Card key={product.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow rounded-lg">
+                  <div className="relative h-48 w-full">
                     {product.image_url ? (
-                      <img src={product.image_url} alt={product.name} className="w-full h-64 object-cover" />
+                      <img src={product.image_url} alt={product.name} className="w-full h-full object-cover rounded-t-lg" />
                     ) : (
-                      <div className="w-full h-64 bg-muted flex items-center justify-center text-muted-foreground text-lg">
+                      <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-sm rounded-t-lg">
                         Sem Imagem
                       </div>
                     )}
-                    {product.category === 'bananada' && ( // Exemplo de badge condicional
-                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                        Nosso Carro-Chefe
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="pt-6">
-                    <h3 className="text-2xl font-semibold mb-2">{product.name}</h3>
-                    <p className="text-muted-foreground mb-4">
-                      {product.description || 'Nenhuma descrição disponível.'}
-                    </p>
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
-                        <CheckCircle className="h-4 w-4" /> {product.category || 'Produto'}
-                      </span>
-                      <span className="flex items-center gap-1 text-muted-foreground text-sm font-medium">
-                        <CheckCircle className="h-4 w-4" /> R$ {product.price.toFixed(2)}
-                      </span>
-                    </div>
-                    <Button asChild variant="link" className="text-primary p-0 h-auto font-semibold">
-                      <Link to="/produtos" className="flex items-center gap-1">
-                        Ver detalhes <ArrowRight className="h-4 w-4" />
-                      </Link>
+                    <Button variant="ghost" size="icon" className="absolute bottom-2 right-2 bg-white/80 hover:bg-white text-primary rounded-full p-2 shadow-md">
+                      <ShoppingCart className="h-5 w-5" />
                     </Button>
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="text-base font-medium text-foreground mb-1 line-clamp-2">{product.name}</h3>
+                    <div className="flex items-center text-yellow-500 text-sm mb-2">
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <Star fill="currentColor" className="h-4 w-4" />
+                      <span className="ml-1 text-muted-foreground text-xs">5.0</span>
+                    </div>
+                    <p className="text-lg font-bold text-foreground">R$ {product.price.toFixed(2)}</p>
                   </CardContent>
                 </Card>
               ))}
