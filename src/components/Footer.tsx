@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button"; // Importar Button
 import logo from "@/assets/logo.png"; // Manter o import do logo para o favicon ou caso precise em outro lugar
 
