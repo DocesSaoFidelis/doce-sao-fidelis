@@ -196,6 +196,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onSuccess }) => {
           <FormDescription>
             <span className="text-sm text-muted-foreground mt-2 block">
               {product?.image_url && !selectedFile ? (
+                // Renderiza o texto e o link diretamente dentro do span, sem fragmento
                 <>
                   Imagem atual: <a href={product.image_url} target="_blank" rel="noopener noreferrer" className="underline">Ver Imagem</a>
                 </>
